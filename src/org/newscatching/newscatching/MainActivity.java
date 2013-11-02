@@ -2,7 +2,6 @@ package org.newscatching.newscatching;
 
 import java.io.IOException;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;

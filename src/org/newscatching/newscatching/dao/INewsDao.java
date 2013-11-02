@@ -11,6 +11,8 @@ public interface INewsDao {
 	public static final int SHEET_TYPE_WORKING = 1;
 	public static final int SHEET_TYPE_CLOSE = 1;
 
-	public abstract ReturnMessage<Boolean> doAcceptRequest(int requestWorkID, boolean accepted);
+	public abstract ReturnMessage<String> doAddAndroidGCMID(String deviceID, String regID);
+
+	public abstract ReturnMessage<Boolean> ping(String deviceID, String regID);
 
 }
