@@ -5,5 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>
     <string name="home_logo">Home Logo</string>
+    <string name="ERROR_DATA_FAIL">取得資料失敗，可能是網路沒有連線或其他問題，請稍後再試</string>
+    <string name="SUCCESS_IN_CACHE_WARNING">目前瀏覽為離線資料。</string>
 
 </resources>

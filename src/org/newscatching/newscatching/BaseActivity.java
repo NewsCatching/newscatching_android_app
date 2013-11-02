@@ -21,7 +21,7 @@ public class BaseActivity extends Activity implements ActivityDestroyObserver, L
 	protected void onCreate(Bundle savedInstanceState) {
 		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		super.onCreate(savedInstanceState);
-		showIndeterminateProgressBar = 0;
+		showIndeterminateProgressBar = 0; 
 	}
 
 	@Override

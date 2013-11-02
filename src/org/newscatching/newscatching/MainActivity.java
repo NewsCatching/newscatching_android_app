@@ -19,6 +19,7 @@ public class MainActivity extends BaseActivity {
 			sendBroadcast(new Intent(this, NetworkConnectedReceiver.class));
 		}
 		Handler handlerTimer = new Handler();
+		//TODO change time
 		handlerTimer.postDelayed(new Runnable() {
 			public void run() {
 
@@ -27,7 +28,7 @@ public class MainActivity extends BaseActivity {
 				finish();
 				
 			}
-		}, 2000);
+		}, 500);
 
 	}
 

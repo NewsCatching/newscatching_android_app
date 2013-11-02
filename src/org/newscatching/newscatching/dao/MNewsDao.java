@@ -12,6 +12,7 @@ import org.newscatching.newscatching.NewsConstant;
 import org.newscatching.newscatching.cache.ICacheHolder;
 import org.newscatching.newscatching.util.ArrayUtil;
 import org.newscatching.newscatching.util.HttpUtil;
+import org.newscatching.newscatching.viewmodel.HotNews;
 import org.newscatching.newscatching.viewmodel.ReturnMessage;
 
 import android.util.Log;
@@ -151,6 +152,12 @@ public class MNewsDao extends BaseNewsDao {
 
 	@Override
 	public ReturnMessage<Boolean> ping(String deviceID, String regID) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ReturnMessage<List<HotNews>> getHotNews() {
 		// TODO Auto-generated method stub
 		return null;
 	}

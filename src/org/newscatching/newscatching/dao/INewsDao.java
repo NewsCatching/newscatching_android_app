@@ -1,5 +1,9 @@
 package org.newscatching.newscatching.dao;
 
+import java.util.List;
+
+import org.newscatching.newscatching.viewmodel.HotNews;
+import org.newscatching.newscatching.viewmodel.News;
 import org.newscatching.newscatching.viewmodel.ReturnMessage;
 
 public interface INewsDao {
@@ -14,5 +18,9 @@ public interface INewsDao {
 	public abstract ReturnMessage<String> doAddAndroidGCMID(String deviceID, String regID);
 
 	public abstract ReturnMessage<Boolean> ping(String deviceID, String regID);
+	
+	public abstract ReturnMessage<List<HotNews>> getHotNews();
+	
+	public abstract ReturnMessage<News> getNews(String newsID);
 
 }
