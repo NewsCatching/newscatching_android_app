@@ -11,6 +11,8 @@ public class NewsConstant {
 
 	public static final boolean DEBUG_MODE = false;
 
+	public static final String PACKAGE_NAME = "org.newscatching.newscatching";
+
 	public static final String getDeviceID(Context context) {
 		SharedPreferences preferences = context.getSharedPreferences(NewsPreference.PREFERENCE_CONFIG,
 				Context.MODE_PRIVATE);

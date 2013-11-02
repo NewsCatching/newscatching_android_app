@@ -36,7 +36,9 @@ abstract public class BaseNewsDao implements INewsDao {
 		ICacheHolder preferenceCacheHolder = prepareCacheHolder(context);
 
 		if (ConnectionDetector.isConnectingToInternet(context)) {
-			return new MNewsDao(token, SERVER_NOW, preferenceCacheHolder);
+			//FIXME: revert this after server is ok
+//			return new MNewsDao(token, SERVER_NOW, preferenceCacheHolder);
+			return new MNewsMockDao(token, SERVER_NOW, preferenceCacheHolder);
 		} else {
 			return new NewsOfflineDao(preferenceCacheHolder);
 		}
