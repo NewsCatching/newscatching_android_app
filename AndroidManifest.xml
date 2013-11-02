@@ -39,7 +39,7 @@
             </intent-filter>
         </activity>
         <activity android:name="org.newscatching.newscatching.HotActivity" />
-        <activity android:name="org.newscatching.newscatching.NewsActivity" />
+        <activity android:name="org.newscatching.newscatching.activity.NewsActivity" />
 
         <receiver android:name="org.newscatching.newscatching.receiver.RegisterGCMReceiver" />
         <receiver android:name="org.newscatching.newscatching.receiver.NetworkConnectedReceiver" >

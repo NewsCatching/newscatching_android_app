@@ -65,7 +65,7 @@ public class LazyHotListAdapter extends BaseAdapter {
 		// url,boolean save)
 		if (news.getImageUrl() == null || "".equals(news.getImageUrl())) {
 			thumb_image.setVisibility(View.GONE);
-		} else {
+		} else { 
 			new AsyncImageDownloader(this.activity, news.getNewsID() + "_thumb", thumb_image, news.getImageUrl(),
 					true).setThumbsize(200).execute();
 

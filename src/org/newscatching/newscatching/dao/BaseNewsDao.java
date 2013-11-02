@@ -37,8 +37,8 @@ abstract public class BaseNewsDao implements INewsDao {
 
 		if (ConnectionDetector.isConnectingToInternet(context)) {
 			//FIXME: revert this after server is ok
-			return new MNewsDao(token, SERVER_NOW, preferenceCacheHolder);
-//			return new MNewsMockDao(token, SERVER_NOW, preferenceCacheHolder);
+//			return new MNewsDao(token, SERVER_NOW, preferenceCacheHolder);
+			return new MNewsMockDao(token, SERVER_NOW, preferenceCacheHolder);
 		} else {
 			return new NewsOfflineDao(preferenceCacheHolder);
 		}

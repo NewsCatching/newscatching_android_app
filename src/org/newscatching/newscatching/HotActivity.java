@@ -31,7 +31,6 @@ public class HotActivity extends BaseActivity {
 			protected ReturnMessage<List<HotNews>> doInBackground(Void... params) {
 
 				INewsDao dao = BaseNewsDao.newInstance(HotActivity.this);
-
 				return dao.getHotNews();
 			}
 
@@ -55,7 +54,7 @@ public class HotActivity extends BaseActivity {
 								HotNews news = (HotNews) v.getTag();
 								if (news != null) {
 									Intent intent = new Intent(HotActivity.this, NewsActivity.class);
-									intent.putExtra("NewsID", ""+news.getNewsID());
+									intent.putExtra("NewsID", "" + news.getNewsID());
 									startActivity(intent);
 								}
 							}
@@ -66,7 +65,6 @@ public class HotActivity extends BaseActivity {
 			};
 
 		}.execute();
-
 
 	}
 
