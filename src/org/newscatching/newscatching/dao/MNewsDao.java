@@ -185,6 +185,12 @@ public class MNewsDao extends BaseNewsDao {
 		return null;
 	}
 
+	@Override
+	public ReturnMessage<Object> addNewTalk(String newsID, String talk, String nick) {
+		// TODO Auto-generated method stub
+		return new ReturnMessage<Object>(false,0,"",null);
+	}
+
 	/*
 	 * helper methods ------------------
 	 */

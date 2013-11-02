@@ -1,24 +1,34 @@
 package org.newscatching.newscatching.activity;
 
 import org.newscatching.newscatching.BaseActivity;
+import org.newscatching.newscatching.NewsPreference;
 import org.newscatching.newscatching.R;
 import org.newscatching.newscatching.dao.BaseNewsDao;
 import org.newscatching.newscatching.dao.INewsDao;
+import org.newscatching.newscatching.observer.OnNicknameReady;
 import org.newscatching.newscatching.util.AsyncImageDownloader;
+import org.newscatching.newscatching.util.DialogUtil;
+import org.newscatching.newscatching.util.ViewUtils;
 import org.newscatching.newscatching.viewmodel.News;
 import org.newscatching.newscatching.viewmodel.ReturnMessage;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class NewsActivity extends BaseActivity {
+	private News current_news;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +79,7 @@ public class NewsActivity extends BaseActivity {
 	}
 
 	public void render(final News news) {
+		current_news = news;
 		// inflater = (LayoutInflater)
 		// activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		TextView tx = _findViewById(R.id.news_title);
@@ -98,8 +109,90 @@ public class NewsActivity extends BaseActivity {
 			iv.setVisibility(View.GONE);
 		}
 
+		iv = _findViewById(R.id.news_award);
+		if (!news.isHot()) {
+			iv.setVisibility(View.GONE);
+		}
+
 		WebView wv = _findViewById(R.id.news_content);
 		wv.loadData(news.getContent(), "text/html; charset=UTF-8", null);
+
+		RelativeLayout rl = _findViewById(R.id.news_talk_submit);
+		ViewUtils.deepOnClickBinder(rl, new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+
+				final EditText edit = _findViewById(R.id.news_talk_input);
+				final String talk = edit.getText().toString().trim();
+				if ("".equals(talk)) {
+					ViewUtils.alert(NewsActivity.this, "請輸入訊息", "您送出的訊息為空白，請輸入資料後再試", null);
+					return;
+				}
+
+				DialogUtil.askNicks(NewsActivity.this, new OnNicknameReady() {
+					@Override
+					public void done(String name) {
+						sendTalks(name, talk);
+					}
+				}, false);
+
+			}
+		});
+
+		ViewUtils.deepOnClickBinder(_findViewById(R.id.news_post_container), new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				openReportDialog();
+			}
+		});
+	}
+
+	private void sendTalks(final String nick, final String talk) {
+		if (current_news != null) {
+			View view = DialogUtil.getInflater(this).inflate(R.layout._talk_list_row, null);
+
+			final ImageView iv = (ImageView) view.findViewById(R.id.talk_star);
+			((TextView) view.findViewById(R.id.talk_name)).setText(nick);
+			((TextView) view.findViewById(R.id.talk_content)).setText(talk);
+
+			ViewGroup vg = _findViewById(R.id.news_talks);
+			vg.addView(view);
+
+			new AsyncTask<Void, Void, ReturnMessage<Object>>() {
+				public ReturnMessage<Object> doInBackground(Void[] params) {
+					INewsDao dao = BaseNewsDao.newInstance(NewsActivity.this);
+					return dao.addNewTalk(current_news.getNewsID(), talk, nick);
+				};
+
+				protected void onPostExecute(org.newscatching.newscatching.viewmodel.ReturnMessage<Object> result) {
+					iv.setVisibility(View.VISIBLE);
+					if (!result.isSuccess()) {
+						iv.setImageDrawable(getResources().getDrawable(R.drawable.talk_fail));
+						return;
+					}
+				};
+			}.execute();
+		}
+		final EditText edit = _findViewById(R.id.news_talk_input);
+		edit.setText("");
+	}
+
+	private void openReportDialog() {
+
+		final View view = DialogUtil.getInflater(this).inflate(R.layout._dialog_news_report, null);
+
+		final AlertDialog dialog = new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_info)
+				.setView(view).show();
+		view.findViewById(R.id.news_report_cancel).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				dialog.cancel();
+			}
+		});
+
+	}
+
+	private void closeReportDialog() {
 	}
 
 	@Override

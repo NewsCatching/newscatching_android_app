@@ -18,9 +18,11 @@ public interface INewsDao {
 	public abstract ReturnMessage<String> doAddAndroidGCMID(String deviceID, String regID);
 
 	public abstract ReturnMessage<Boolean> ping(String deviceID, String regID);
-	
+
 	public abstract ReturnMessage<List<HotNews>> getHotNews();
-	
+
 	public abstract ReturnMessage<News> getNews(String newsID);
+
+	public abstract ReturnMessage<Object> addNewTalk(String newsID, String talk, String nick);
 
 }

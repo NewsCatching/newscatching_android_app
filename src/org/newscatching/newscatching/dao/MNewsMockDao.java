@@ -63,6 +63,12 @@ public class MNewsMockDao extends BaseNewsDao {
 		
 		return new ReturnMessage<News>(true,0,"",n);
 	}
+
+	@Override
+	public ReturnMessage<Object> addNewTalk(String newsID, String talk, String nick) {
+		return new ReturnMessage<Object>(false,0,"",null);
+
+	}
 	
 	
 
