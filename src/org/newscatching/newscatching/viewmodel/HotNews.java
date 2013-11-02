@@ -1,14 +1,14 @@
 package org.newscatching.newscatching.viewmodel;
 
 public class HotNews {
-	private int newsID;
+	private String newsID;
 	private String title;
 	private String imageUrl;
 
 	public HotNews() {
 	}
 
-	public HotNews(int newsID, String title, String imageUrl) {
+	public HotNews(String newsID, String title, String imageUrl) {
 		super();
 		this.newsID = newsID;
 		this.title = title;
@@ -31,11 +31,11 @@ public class HotNews {
 		this.imageUrl = imageUrl;
 	}
 
-	public int getNewsID() {
+	public String getNewsID() {
 		return newsID;
 	}
 
-	public void setNewsID(int newsID) {
+	public void setNewsID(String newsID) {
 		this.newsID = newsID;
 	}
 

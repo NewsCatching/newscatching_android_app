@@ -14,7 +14,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
-import android.util.Log;
 
 import com.google.android.gms.gcm.GoogleCloudMessaging;
 
@@ -65,27 +64,37 @@ public class RegisterGCMReceiver extends BroadcastReceiver {
 	}
 
 	private void registerBackground() {
-		GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(_context);
-		new AsyncTask<GoogleCloudMessaging, Void, String>() {
-			@Override
-			protected String doInBackground(GoogleCloudMessaging... params) {
-				String msg = "";
-				try {
-					GoogleCloudMessaging message = params[0];
-					String regid = message.register(NewsConstant.GOOGLE_SENDER_ID);
-
-					SharedPreferences.Editor editor = _context.getSharedPreferences(
-							NewsPreference.PREFERENCE_CONFIG, Context.MODE_PRIVATE).edit();
-					editor.putString(NewsPreference.CONFIG_PROPERTY_REG_ID, regid);
-					editor.commit();
-					sendGCMIDToServer(regid);
-
-				} catch (IOException ex) {
-					msg = "Error :" + ex.getMessage();
+		SharedPreferences prefs = _context.getSharedPreferences(
+				NewsPreference.PREFERENCE_CONFIG, Context.MODE_PRIVATE);
+		
+		
+		String reg =  prefs.getString(NewsPreference.CONFIG_PROPERTY_REG_ID,null);
+//		String device = prefs.getString(NewsPreference.CONFIG_PROPERTY_DEVICE_ID,null);
+//		String token =  prefs.getString(NewsPreference.CONFIG_PROPERTY_ACCESS_TOKEN,null);
+		
+		if(reg == null){
+			GoogleCloudMessaging gcm = GoogleCloudMessaging.getInstance(_context);
+			new AsyncTask<GoogleCloudMessaging, Void, String>() {
+				@Override
+				protected String doInBackground(GoogleCloudMessaging... params) {
+					String msg = "";
+					try {
+						GoogleCloudMessaging message = params[0];
+						String regid = message.register(NewsConstant.GOOGLE_SENDER_ID);
+	
+						SharedPreferences.Editor editor = _context.getSharedPreferences(
+								NewsPreference.PREFERENCE_CONFIG, Context.MODE_PRIVATE).edit();
+						editor.putString(NewsPreference.CONFIG_PROPERTY_REG_ID, regid);
+						editor.commit();
+						sendGCMIDToServer(regid);
+	
+					} catch (IOException ex) {
+						msg = "Error :" + ex.getMessage();
+					}
+					return msg;
 				}
-				return msg;
-			}
-
-		}.execute(gcm, null, null);
+	
+			}.execute(gcm, null, null);
+		}
 	}
 }

@@ -2,20 +2,22 @@ package org.newscatching.newscatching.dao;
 
 import java.net.MalformedURLException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.newscatching.newscatching.NewsConstant;
 import org.newscatching.newscatching.cache.ICacheHolder;
 import org.newscatching.newscatching.util.ArrayUtil;
 import org.newscatching.newscatching.util.HttpUtil;
+import org.newscatching.newscatching.util.LogUtil;
 import org.newscatching.newscatching.viewmodel.HotNews;
+import org.newscatching.newscatching.viewmodel.News;
 import org.newscatching.newscatching.viewmodel.ReturnMessage;
-
-import android.util.Log;
 
 public class MNewsDao extends BaseNewsDao {
 
@@ -50,9 +52,10 @@ public class MNewsDao extends BaseNewsDao {
 			DataConverter<K, T> converter, boolean cache, String cache_key) {
 		String response = null;
 		try {
-			if (this.access_token == null && url.indexOf("DoAndroidActivating") == -1) {
-				return new ReturnMessage<T>(false, -3, "尚未通過驗證所以無法存取資料", null);
-			}
+			// if (this.access_token == null &&
+			// url.indexOf("DoAndroidActivating") == -1) {
+			// return new ReturnMessage<T>(false, -3, "尚未通過驗證所以無法存取資料", null);
+			// }
 			if (method == METHOD_GET) {
 				StringBuffer param = new StringBuffer();
 				if (paramters != null) {
@@ -74,7 +77,7 @@ public class MNewsDao extends BaseNewsDao {
 						}
 					}
 					if (NewsConstant.DEBUG_MODE) {
-						Log.d("mcall-debug", "param result:" + param);
+						LogUtil.d("param result:" + param);
 					}
 				}
 				response = HttpUtil.doGET(this.service_url + "/" + url + "?access_token=" + this.access_token
@@ -96,7 +99,7 @@ public class MNewsDao extends BaseNewsDao {
 				throw new IllegalArgumentException("Only POST/GET method allowed.");
 			}
 			if (NewsConstant.DEBUG_MODE) {
-				Log.d("mcall-debug", "response:" + response);
+				LogUtil.d("response:" + response);
 			}
 			JSONObject jsonObject = new JSONObject(response);
 
@@ -109,19 +112,21 @@ public class MNewsDao extends BaseNewsDao {
 				}
 			}
 
-			if (jsonObject.getBoolean("isSuccess") && cache && this.cacheHolder != null && cache_key != null) {
+			boolean isSuccess = jsonObject.getInt("status") == 0;
+
+			if (isSuccess && cache && this.cacheHolder != null && cache_key != null) {
 				this.cacheHolder.doCache(method, cache_key, response);
 			}
 
-			return new ReturnMessage<T>(jsonObject.getBoolean("isSuccess"), jsonObject.getInt("errorCode"),
-					jsonObject.getString("errorMessage"), converted);
+			return new ReturnMessage<T>(isSuccess, jsonObject.getInt("status"),
+					jsonObject.getString("message"), converted);
 
 		} catch (MalformedURLException e) {
-			Log.e("mcall-error", e.getMessage(), e);
+			LogUtil.e(e.getMessage(), e);
 		} catch (JSONException e) {
-			Log.e("mcall-error", e.getMessage(), e);
+			LogUtil.e(e.getMessage(), e);
 		} catch (Exception e) {
-			Log.e("mcall-error", e.getMessage(), e);
+			LogUtil.e(e.getMessage(), e);
 		}
 		return new ReturnMessage<T>(false, -2, "Not able to parse result:" + response, null);
 	}
@@ -158,6 +163,24 @@ public class MNewsDao extends BaseNewsDao {
 
 	@Override
 	public ReturnMessage<List<HotNews>> getHotNews() {
+		return doCacheGET("news/hotests", null, new DataConverter<JSONArray, List<HotNews>>() {
+			@Override
+			public List<HotNews> ConvertTo(JSONArray input) throws Exception {
+				List<HotNews> list = new ArrayList<HotNews>();
+
+				for (int i = 0; i < input.length(); ++i) {
+					JSONObject obj = input.getJSONObject(i);
+					// TODO: replace image url
+					list.add(new HotNews(obj.getString("id"), obj.getString("title"), obj.getString("ogImage")));
+				}
+
+				return list;
+			}
+		}, true, "getHotNews");
+	}
+
+	@Override
+	public ReturnMessage<News> getNews(String newsID) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.newscatching.newscatching.cache.ICacheHolder;
 import org.newscatching.newscatching.viewmodel.HotNews;
+import org.newscatching.newscatching.viewmodel.News;
 import org.newscatching.newscatching.viewmodel.ReturnMessage;
 
 public class MNewsMockDao extends BaseNewsDao {
@@ -40,12 +41,18 @@ public class MNewsMockDao extends BaseNewsDao {
 		ArrayList<HotNews> list = new ArrayList<HotNews>();
 		
 		for(int i = 0 ; i < 5;++i){
-			list.add(new HotNews(i,"test "+i,"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn1/211229_1403951219_1146935976_q.jpg"));
+			list.add(new HotNews(""+i,"test "+i,"https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn1/211229_1403951219_1146935976_q.jpg"));
 		}
 		list.get(3).setImageUrl(null);
-		list.add(new HotNews(5,"test 5","https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/s32x32/203402_1521110015_1215854080_q.jpg"));
+		list.add(new HotNews(""+5,"test 5","https://fbcdn-profile-a.akamaihd.net/hprofile-ak-prn2/s32x32/203402_1521110015_1215854080_q.jpg"));
 		
 		return new ReturnMessage<List<HotNews>>(true,0,"",list);
+	}
+
+	@Override
+	public ReturnMessage<News> getNews(String newsID) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

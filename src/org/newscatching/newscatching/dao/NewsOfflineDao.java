@@ -7,6 +7,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.newscatching.newscatching.cache.ICacheHolder;
 import org.newscatching.newscatching.viewmodel.HotNews;
+import org.newscatching.newscatching.viewmodel.News;
 import org.newscatching.newscatching.viewmodel.ReturnMessage;
 
 import android.util.Log;
@@ -78,9 +79,13 @@ public class NewsOfflineDao extends BaseNewsDao{
 
 	@Override
 	public ReturnMessage<List<HotNews>> getHotNews() {
-		
-		//TODO 
 		return doCacheGET("getHotNews", null);
+	}
+
+
+	@Override
+	public ReturnMessage<News> getNews(String newsID) {
+		return doCacheGET("getNews", null);
 	}
 	
 }

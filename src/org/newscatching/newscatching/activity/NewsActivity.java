@@ -1,22 +1,15 @@
 package org.newscatching.newscatching.activity;
 
-import java.util.List;
-
 import org.newscatching.newscatching.BaseActivity;
 import org.newscatching.newscatching.R;
-import org.newscatching.newscatching.adapter.LazyHotListAdapter;
 import org.newscatching.newscatching.dao.BaseNewsDao;
 import org.newscatching.newscatching.dao.INewsDao;
-import org.newscatching.newscatching.util.ViewUtils;
-import org.newscatching.newscatching.viewmodel.HotNews;
 import org.newscatching.newscatching.viewmodel.News;
 import org.newscatching.newscatching.viewmodel.ReturnMessage;
 
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
-import android.widget.ListView;
 import android.widget.Toast;
 
 public class NewsActivity extends BaseActivity {
