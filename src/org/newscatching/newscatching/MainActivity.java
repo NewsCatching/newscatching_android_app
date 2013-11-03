@@ -28,14 +28,14 @@ public class MainActivity extends BaseActivity {
 		//
 
 		// TODO: debug only
-		Intent intent = new Intent(MainActivity.this, NewsListActivity.class);
-		intent.putExtra("type", NewsListActivity.TYPE_NEWS);
-		startActivity(intent);
-		finish();
-
-		if (true) {
-			return;
-		}
+//		Intent intent = new Intent(MainActivity.this, NewsListActivity.class);
+//		intent.putExtra("type", NewsListActivity.TYPE_NEWS);
+//		startActivity(intent);
+//		finish();
+//
+//		if (true) {
+//			return;
+//		}
 
 		Handler handlerTimer = new Handler();
 		handlerTimer.postDelayed(new Runnable() {
