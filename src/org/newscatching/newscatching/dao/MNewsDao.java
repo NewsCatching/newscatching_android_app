@@ -229,7 +229,8 @@ public class MNewsDao extends BaseNewsDao {
 		HashMap<String, Object> params = null;
 
 		if (q != null) {
-			params.put("q", q);
+			params = new HashMap<String, Object>();
+			params.put("q", URLEncoder.encode(q));
 		}
 
 		return doCacheGET(api_url, params, new DataConverter<JSONArray, List<News>>() {
@@ -244,7 +245,7 @@ public class MNewsDao extends BaseNewsDao {
 					n.setNewsID(jsonNews.getString("id"));
 
 					n.setTitle(jsonNews.getString("title"));
-//					n.setContent(jsonNews.getString("body"));
+					// n.setContent(jsonNews.getString("body"));
 					n.setImageURL(jsonNews.getString("ogImage"));
 					n.setSource(jsonNews.getString("referral"));
 					n.setSupported("1".equals(jsonNews.getString("isSupport")));

@@ -21,6 +21,16 @@
             android:adjustViewBounds="true"
             android:src="@drawable/back" />
 
+        <ProgressBar
+            android:id="@+id/head_progress"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_toRightOf="@+id/head_back"
+            android:indeterminate="false"
+            android:visibility="gone" />
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -33,7 +43,7 @@
     <LinearLayout
         android:id="@+id/newslist_search_container"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_below="@+id/header"
         android:orientation="vertical" >
 
@@ -41,8 +51,9 @@
             android:id="@+id/newslist_search"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/report_edit_text_old"
+            android:layout_marginBottom="2dp"
+            android:layout_marginTop="2dp"
+            android:background="@drawable/new_list_edit_text_old"
             android:hint="Search..."
             android:padding="5dp" />
     </LinearLayout>

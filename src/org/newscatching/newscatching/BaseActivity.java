@@ -32,30 +32,30 @@ public class BaseActivity extends Activity implements ActivityDestroyObserver, L
 	@Override
 	protected void onStart() {
 		super.onStart();
-		// View view = findViewById(R.id.head_progress);
-		// if (view != null) {
-		// view.setVisibility(View.GONE);
-		// LogUtil.d("activity_loading:init:" + showIndeterminateProgressBar);
-		// }
+		View view = findViewById(R.id.head_progress);
+		if (view != null) {
+			view.setVisibility(View.GONE);
+			LogUtil.d("activity_loading:init:" + showIndeterminateProgressBar);
+		}
 	}
 
 	public void showProgressBar() {
 		showIndeterminateProgressBar++;
-		// View view = findViewById(R.id.head_progress);
-		// if (view != null) {
-		// view.setVisibility(View.VISIBLE);
-		// }
-		// LogUtil.d("activity_loading:++:" + showIndeterminateProgressBar);
+		View view = findViewById(R.id.head_progress);
+		if (view != null) {
+			view.setVisibility(View.VISIBLE);
+		}
+		LogUtil.d("activity_loading:++:" + showIndeterminateProgressBar);
 	}
 
 	public void dismissProgressBar() {
 		showIndeterminateProgressBar--;
 		if (showIndeterminateProgressBar == 0) {
-			// View view = findViewById(R.id.head_progress);
-			//
-			// if (view != null) {
-			// view.setVisibility(View.GONE);
-			// }
+			View view = findViewById(R.id.head_progress);
+
+			if (view != null) {
+				view.setVisibility(View.GONE);
+			}
 
 		}
 		LogUtil.d("activity_loading:--:" + showIndeterminateProgressBar);
