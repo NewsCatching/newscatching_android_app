@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.newscatching.newscatching.BaseActivity;
 import org.newscatching.newscatching.R;
-import org.newscatching.newscatching.adapter.LazyHotListAdapter;
 import org.newscatching.newscatching.adapter.LazyListAdapter;
 import org.newscatching.newscatching.dao.BaseNewsDao;
 import org.newscatching.newscatching.dao.INewsDao;
@@ -23,12 +22,12 @@ public class NewsListActivity extends BaseActivity {
 
 	public final static int TYPE_NEWS = 0;
 	public final static int TYPE_HOT = 1;
-	public final static int TYPE_INTERNEW = 1;
+	public final static int TYPE_INTERNET = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_hot);
+		setContentView(R.layout.activity_news_list);
 
 		final int type = getIntent().getExtras().getInt("type");
 
@@ -36,9 +35,7 @@ public class NewsListActivity extends BaseActivity {
 
 			@Override
 			protected ReturnMessage<List<News>> doInBackground(Void... params) {
-
 				INewsDao dao = BaseNewsDao.newInstance(NewsListActivity.this);
-				// TODO
 				return dao.getNewsList(type, null);
 			}
 

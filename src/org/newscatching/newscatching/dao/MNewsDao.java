@@ -11,6 +11,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.newscatching.newscatching.NewsConstant;
+import org.newscatching.newscatching.activity.NewsActivity;
+import org.newscatching.newscatching.activity.NewsListActivity;
 import org.newscatching.newscatching.cache.ICacheHolder;
 import org.newscatching.newscatching.util.ArrayUtil;
 import org.newscatching.newscatching.util.HttpUtil;
@@ -191,20 +193,10 @@ public class MNewsDao extends BaseNewsDao {
 				n.setContent(jsonNews.getString("body"));
 				n.setImageURL(jsonNews.getString("picUrl"));
 				n.setSource(jsonNews.getString("referral"));
-
 				NewsDetails nd = new NewsDetails();
 				nd.setNews(n);
+
 				return nd;
-				// List<HotNews> list = new ArrayList<HotNews>();
-				//
-				// for (int i = 0; i < input.length(); ++i) {
-				// JSONObject obj = input.getJSONObject(i);
-				// // TODO: replace image url
-				// list.add(new HotNews(obj.getString("id"),
-				// obj.getString("title"), obj.getString("ogImage")));
-				// }
-				//
-				// return list;
 			}
 		}, true, "getNews/" + newsID);
 	}
@@ -223,9 +215,47 @@ public class MNewsDao extends BaseNewsDao {
 
 	@Override
 	public ReturnMessage<List<News>> getNewsList(int type, String q) {
-		return new ReturnMessage<List<News>>(false, 0, "", null);
-	}
 
+		String api_url = "news/report";
+
+		if (type == NewsListActivity.TYPE_INTERNET) {
+			api_url = "news/report";
+		} else if (type == NewsListActivity.TYPE_HOT) {
+			api_url = "news/hot";
+		} else if (type == NewsListActivity.TYPE_NEWS) {
+			api_url = "news/list";
+		}
+
+		HashMap<String, Object> params = null;
+
+		if (q != null) {
+			params.put("q", q);
+		}
+
+		return doCacheGET(api_url, params, new DataConverter<JSONArray, List<News>>() {
+			@Override
+			public List<News> ConvertTo(JSONArray input) throws Exception {
+
+				List<News> news = new ArrayList<News>();
+
+				for (int i = 0; i < input.length(); ++i) {
+					JSONObject jsonNews = input.getJSONObject(i);
+					News n = new News();
+					n.setNewsID(jsonNews.getString("id"));
+
+					n.setTitle(jsonNews.getString("title"));
+//					n.setContent(jsonNews.getString("body"));
+					n.setImageURL(jsonNews.getString("ogImage"));
+					n.setSource(jsonNews.getString("referral"));
+					n.setSupported("1".equals(jsonNews.getString("isSupport")));
+					news.add(n);
+				}
+
+				return news;
+			}
+		}, true, "getNewsList/" + type);
+
+	}
 	/*
 	 * helper methods ------------------
 	 */

@@ -8,9 +8,9 @@ public class News {
 	public String getImageURL() {
 		return imageURL;
 	}
-	
-	public boolean hasImageURL(){
-		return imageURL != null && !"".equals(imageURL.trim());  
+
+	public boolean hasImageURL() {
+		return imageURL != null && !"".equals(imageURL.trim());
 	}
 
 	public void setImageURL(String imageURL) {
@@ -44,7 +44,7 @@ public class News {
 	}
 
 	public String getShareUrl() {
-		return shareUrl;
+		return "http://news.is.gy/grassboy/view.php?id=" + newsID;
 	}
 
 	public void setShareUrl(String shareUrl) {

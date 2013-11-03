@@ -30,24 +30,30 @@
             android:src="@drawable/header_right" />
     </RelativeLayout>
 
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/newslist_search_container"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/header"
+        android:orientation="vertical" >
+
+        <EditText
+            android:id="@+id/newslist_search"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/report_edit_text_old"
+            android:hint="Search..."
+            android:padding="5dp" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/hot_listview"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@+id/fixed_footer"
-        android:layout_below="@+id/header"
-        android:background="#fff" >
-
-        <LinearLayout
-            android:id="@+id/news_list_container"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingBottom="16dp"
-            android:paddingLeft="40dp"
-            android:paddingRight="30dp"
-            android:paddingTop="16dp" >
-        </LinearLayout>
-    </ScrollView>
+        android:layout_below="@+id/newslist_search_container" >
+    </ListView>
 
     <LinearLayout
         android:id="@+id/fixed_footer"
@@ -65,20 +71,35 @@
             <TextView
                 android:id="@+id/news_list_news"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="網路精選" />
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/news_footer_button"
+                android:gravity="center"
+                android:text="網路精選"
+                android:textColor="#fff" />
 
             <TextView
                 android:id="@+id/news_list_hot"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="熱門榜" />
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/news_footer_button"
+                android:gravity="center"
+                android:text="熱門榜"
+                android:textColor="#fff" />
 
             <TextView
                 android:id="@+id/news_list_lazys"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="看懶人包" />
+                android:layout_height="fill_parent"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/news_footer_button"
+                android:gravity="center"
+                android:text="看懶人包"
+                android:textColor="#fff" />
         </LinearLayout>
     </LinearLayout>
 

@@ -1,7 +1,6 @@
 package org.newscatching.newscatching.activity;
 
 import org.newscatching.newscatching.BaseActivity;
-import org.newscatching.newscatching.NewsPreference;
 import org.newscatching.newscatching.R;
 import org.newscatching.newscatching.dao.BaseNewsDao;
 import org.newscatching.newscatching.dao.INewsDao;
@@ -14,7 +13,6 @@ import org.newscatching.newscatching.viewmodel.NewsDetails;
 import org.newscatching.newscatching.viewmodel.ReturnMessage;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -40,7 +38,6 @@ public class NewsActivity extends BaseActivity {
 		String newsID = extras.getString("NewsID");
 
 		findViewById(R.id.head_back).setOnClickListener(new View.OnClickListener() {
-
 			@Override
 			public void onClick(View v) {
 				finish();
@@ -54,7 +51,6 @@ public class NewsActivity extends BaseActivity {
 			protected ReturnMessage<NewsDetails> doInBackground(String... params) {
 
 				INewsDao dao = BaseNewsDao.newInstance(NewsActivity.this);
-
 				return dao.getNews(params[0]);
 			}
 
@@ -179,7 +175,8 @@ public class NewsActivity extends BaseActivity {
 				protected void onPostExecute(org.newscatching.newscatching.viewmodel.ReturnMessage<Object> result) {
 					iv.setVisibility(View.VISIBLE);
 					if (!result.isSuccess()) {
-						iv.setImageDrawable(getResources().getDrawable(R.drawable.talk_fail));
+						// TODO:fail
+						// iv.setImageDrawable(getResources().getDrawable(R.drawable.talk_fail));
 						return;
 					}
 				};
@@ -195,13 +192,13 @@ public class NewsActivity extends BaseActivity {
 
 		final AlertDialog dialog = new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_info)
 				.setView(view).show();
-		
+
 		TextView tv = (TextView) view.findViewById(R.id.news_report_title);
 		tv.setText(current_news.getTitle());
-		
+
 		tv = (TextView) view.findViewById(R.id.news_report_source);
 		tv.setText(current_news.getSource());
-		
+
 		view.findViewById(R.id.news_report_cancel).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -246,7 +243,8 @@ public class NewsActivity extends BaseActivity {
 								org.newscatching.newscatching.viewmodel.ReturnMessage<Object> result) {
 							iv.setVisibility(View.VISIBLE);
 							if (!result.isSuccess()) {
-								iv.setImageDrawable(getResources().getDrawable(R.drawable.talk_fail));
+								// TODO:review
+								// iv.setImageDrawable(getResources().getDrawable(R.drawable.talk_fail));
 								return;
 							}
 						};

@@ -10,9 +10,9 @@ import android.content.SharedPreferences;
 
 abstract public class BaseNewsDao implements INewsDao {
 	@SuppressWarnings("unused")
-	private static final String SERVER_TEST = "http://10.101.136.233:1234/api/v1/";
+	private static final String SERVER_TEST = "http://news.is.gy:1234/api/v1/";
 	@SuppressWarnings("unused")
-	private static final String SERVER_PRODUCTION = "http://10.101.136.233:1234/api/v1/";
+	private static final String SERVER_PRODUCTION = "http://news.is.gy:1234/api/v1/";
 	private static final String SERVER_NOW = SERVER_PRODUCTION;
 
 	public static INewsDao newOfflineInstance(final Context context) {

@@ -75,8 +75,7 @@ public class LazyListAdapter extends BaseAdapter {
 		ViewUtils.deepOnClickBinder(vi, new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				v2.setBackgroundColor(Color.GRAY);
-
+				 v2.setBackgroundColor(Color.GRAY);
 				if (listener != null) {
 					listener.onClick(v2);
 				}
