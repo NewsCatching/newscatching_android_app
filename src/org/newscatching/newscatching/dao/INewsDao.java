@@ -24,5 +24,6 @@ public interface INewsDao {
 	public abstract ReturnMessage<News> getNews(String newsID);
 
 	public abstract ReturnMessage<Object> addNewTalk(String newsID, String talk, String nick);
+	public abstract ReturnMessage<Object> addNewReport(String newsID,String nick, String url,String comment);
 
 }

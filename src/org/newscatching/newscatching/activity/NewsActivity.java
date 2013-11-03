@@ -190,9 +190,52 @@ public class NewsActivity extends BaseActivity {
 			}
 		});
 
+		view.findViewById(R.id.news_report_ok).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				EditText url = (EditText) view.findViewById(R.id.news_report_url);
+				EditText comment = (EditText) view.findViewById(R.id.news_report_comment);
+
+				sendNewReport(url.getText().toString(), comment.getText().toString());
+
+				dialog.dismiss();
+			}
+		});
+
 	}
 
-	private void closeReportDialog() {
+	public void sendNewReport(final String url, final String comment) {
+		DialogUtil.askNicks(NewsActivity.this, new OnNicknameReady() {
+			@Override
+			public void done(final String name) {
+				if (current_news != null) {
+					View view = DialogUtil.getInflater(NewsActivity.this).inflate(R.layout._report_list_row, null);
+
+					final ImageView iv = (ImageView) view.findViewById(R.id.report_star);
+					((TextView) view.findViewById(R.id.report_content)).setText(url+" "+comment);
+
+					ViewGroup vg = _findViewById(R.id.news_reports);
+					vg.addView(view);
+
+					new AsyncTask<Void, Void, ReturnMessage<Object>>() {
+						public ReturnMessage<Object> doInBackground(Void[] params) {
+							INewsDao dao = BaseNewsDao.newInstance(NewsActivity.this);
+							return dao.addNewReport(current_news.getNewsID(), name, url, comment);
+						};
+
+						protected void onPostExecute(
+								org.newscatching.newscatching.viewmodel.ReturnMessage<Object> result) {
+							iv.setVisibility(View.VISIBLE);
+							if (!result.isSuccess()) {
+								iv.setImageDrawable(getResources().getDrawable(R.drawable.talk_fail));
+								return;
+							}
+						};
+					}.execute();
+				}
+			}
+		}, false);
+
 	}
 
 	@Override

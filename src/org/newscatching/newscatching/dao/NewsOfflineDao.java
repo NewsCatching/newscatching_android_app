@@ -88,4 +88,10 @@ public class NewsOfflineDao extends BaseNewsDao {
 		return new ReturnMessage<Object>(false, 0, "", null);
 	}
 
+	@Override
+	public ReturnMessage<Object> addNewReport(String newsID,String nick, String url, String comment) {
+		// TODO Auto-generated method stub
+		return new ReturnMessage<Object>(false, 0, "", null);
+	}
+
 }
