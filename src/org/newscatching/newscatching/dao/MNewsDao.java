@@ -189,6 +189,7 @@ public class MNewsDao extends BaseNewsDao {
 			public NewsDetails ConvertTo(JSONObject input) throws Exception {
 				JSONObject jsonNews = input.getJSONObject("news");
 				News n = new News();
+				n.setNewsID(jsonNews.getString("id"));
 				n.setTitle(jsonNews.getString("title"));
 				n.setContent(jsonNews.getString("body"));
 				n.setImageURL(jsonNews.getString("picUrl"));
