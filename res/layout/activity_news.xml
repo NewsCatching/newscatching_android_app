@@ -17,7 +17,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
             android:layout_marginTop="3dp"
             android:adjustViewBounds="true"
             android:src="@drawable/back" />
@@ -52,7 +51,8 @@
                 android:id="@+id/news_image"
                 android:layout_width="wrap_content"
                 android:layout_height="100dp"
-                android:layout_gravity="center" />
+                android:adjustViewBounds="true"
+                android:layout_gravity="left" />
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -64,7 +64,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:text="[聯合報]"
+                    android:text=""
                     android:textSize="18sp" />
 
                 <ImageView
@@ -84,7 +84,7 @@
                 android:id="@+id/news_title"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="桃園黃色小鴨，疑充氣過快爆掉"
+                android:text=""
                 android:textSize="36sp" />
 
             <WebView
@@ -215,6 +215,7 @@
         android:layout_below="@+id/header"
         android:layout_marginLeft="4dp"
         android:layout_marginTop="-16dp"
+        android:visibility="gone"
         android:src="@drawable/award" />
 
     <LinearLayout
@@ -231,6 +232,7 @@
             android:orientation="horizontal" >
 
             <RelativeLayout
+                 android:id="@+id/news_browses_container"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
@@ -256,7 +258,7 @@
             </RelativeLayout>
 
             <RelativeLayout
-                 android:id="@+id/news_post_container"
+                android:id="@+id/news_post_container"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="1dp"
@@ -283,6 +285,5 @@
             </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
-
 
 </RelativeLayout>

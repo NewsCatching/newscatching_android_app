@@ -40,6 +40,7 @@
         </activity>
         <activity android:name="org.newscatching.newscatching.HotActivity" />
         <activity android:name="org.newscatching.newscatching.activity.NewsActivity" />
+        <activity android:name="org.newscatching.newscatching.activity.NewsListActivity" />
 
         <receiver android:name="org.newscatching.newscatching.receiver.RegisterGCMReceiver" />
         <receiver android:name="org.newscatching.newscatching.receiver.NetworkConnectedReceiver" >

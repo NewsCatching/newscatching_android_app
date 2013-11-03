@@ -12,15 +12,15 @@
         android:id="@+id/hot_listview_image_border"
         android:layout_width="70dp"
         android:layout_height="70dp"
-        android:layout_marginLeft="5dp"
         android:layout_alignParentLeft="true"
-        android:background="@drawable/hot_icon"
+        android:layout_marginLeft="5dp"
+        android:background="@drawable/list_image_bg"
         android:padding="5dip" >
+
         <ImageView
             android:id="@+id/hot_listview_image"
             android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:src="@drawable/ic_launcher" />
+            android:layout_height="60dp" />
     </LinearLayout>
 
     <!-- Rightend Duration -->
@@ -29,11 +29,11 @@
         android:id="@+id/hot_listview_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/hot_listview_image_border"
+        android:gravity="center"
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
-        android:layout_centerVertical="true"
-        android:gravity="center"
         android:textColor="#fff"
         android:textSize="20sp"
         android:textStyle="bold" />

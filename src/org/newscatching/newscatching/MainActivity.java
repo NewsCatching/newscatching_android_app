@@ -1,6 +1,6 @@
 package org.newscatching.newscatching;
 
-import org.newscatching.newscatching.activity.NewsActivity;
+import org.newscatching.newscatching.activity.NewsListActivity;
 import org.newscatching.newscatching.receiver.NetworkConnectedReceiver;
 import org.newscatching.newscatching.util.ConnectionDetector;
 
@@ -19,16 +19,24 @@ public class MainActivity extends BaseActivity {
 		if (ConnectionDetector.isConnectingToInternet(this)) {
 			sendBroadcast(new Intent(this, NetworkConnectedReceiver.class));
 		}
-		
-		
-		//TODO: debug only
-		Intent intent = new Intent(MainActivity.this, NewsActivity.class);
-		intent.putExtra("NewsID","1");
-		startActivity(intent);
-		finish();
-		
-		if(true) return ;
-		
+
+		// //TODO: debug only
+		// Intent intent = new Intent(MainActivity.this, NewsActivity.class);
+		// intent.putExtra("NewsID","1");
+		// startActivity(intent);
+		// finish();
+		//
+
+		// //TODO: debug only
+//		Intent intent = new Intent(MainActivity.this, NewsListActivity.class);
+//		intent.putExtra("type", NewsListActivity.TYPE_NEWS);
+//		startActivity(intent);
+//		finish();
+//		
+//		if (true) {
+//			return;
+//		}
+
 		Handler handlerTimer = new Handler();
 		handlerTimer.postDelayed(new Runnable() {
 			public void run() {
@@ -36,7 +44,7 @@ public class MainActivity extends BaseActivity {
 				Intent intent = new Intent(MainActivity.this, HotActivity.class);
 				startActivity(intent);
 				finish();
-				
+
 			}
 		}, 1000);
 

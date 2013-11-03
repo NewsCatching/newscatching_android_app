@@ -7,6 +7,7 @@ import org.newscatching.newscatching.R;
 import org.newscatching.newscatching.util.AsyncImageDownloader;
 import org.newscatching.newscatching.util.ViewUtils;
 import org.newscatching.newscatching.viewmodel.HotNews;
+import org.newscatching.newscatching.viewmodel.News;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -18,14 +19,14 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class LazyHotListAdapter extends BaseAdapter {
+public class LazyListAdapter extends BaseAdapter {
 
 	private BaseActivity activity;
-	private List<HotNews> data;
+	private List<News> data;
 	private static LayoutInflater inflater = null;
 	private OnClickListener listener = null;
 
-	public LazyHotListAdapter(BaseActivity a, List<HotNews> d, final OnClickListener listener) {
+	public LazyListAdapter(BaseActivity a, List<News> d, final OnClickListener listener) {
 		activity = a;
 		data = d;
 		inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -51,7 +52,7 @@ public class LazyHotListAdapter extends BaseAdapter {
 			vi = inflater.inflate(R.layout._hot_list_row, null);
 		}
 
-		final HotNews news = data.get(position);
+		final News news = data.get(position);
 
 		TextView title = (TextView) vi.findViewById(R.id.hot_listview_title); // title
 		ImageView thumb_image = (ImageView) vi.findViewById(R.id.hot_listview_image);
@@ -63,14 +64,10 @@ public class LazyHotListAdapter extends BaseAdapter {
 		// url
 		// (ActivityDestroyObserver context, String name, ImageView iv, String
 		// url,boolean save)
-		if (news.getImageUrl() == null || "".equals(news.getImageUrl())) {
+		if (news.getImageURL() == null || "".equals(news.getImageURL())) {
 			thumb_image.setVisibility(View.GONE);
-
-			ImageView iv = (ImageView) vi.findViewById(R.id.hot_listview_image_border);
-			iv.setImageDrawable(activity.getResources().getDrawable(R.drawable.hot_icon));
-
 		} else {
-			new AsyncImageDownloader(this.activity, news.getNewsID() + "_thumb", thumb_image, news.getImageUrl(),
+			new AsyncImageDownloader(this.activity, news.getNewsID() + "_thumb", thumb_image, news.getImageURL(),
 					true).setThumbsize(200).execute();
 
 		}

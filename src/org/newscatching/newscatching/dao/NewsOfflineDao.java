@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import org.newscatching.newscatching.cache.ICacheHolder;
 import org.newscatching.newscatching.viewmodel.HotNews;
 import org.newscatching.newscatching.viewmodel.News;
+import org.newscatching.newscatching.viewmodel.NewsDetails;
 import org.newscatching.newscatching.viewmodel.ReturnMessage;
 
 import android.util.Log;
@@ -79,7 +80,7 @@ public class NewsOfflineDao extends BaseNewsDao {
 	}
 
 	@Override
-	public ReturnMessage<News> getNews(String newsID) {
+	public ReturnMessage<NewsDetails> getNews(String newsID) {
 		return doCacheGET("getNews", null);
 	}
 
@@ -89,9 +90,15 @@ public class NewsOfflineDao extends BaseNewsDao {
 	}
 
 	@Override
-	public ReturnMessage<Object> addNewReport(String newsID,String nick, String url, String comment) {
+	public ReturnMessage<Object> addNewReport(String newsID, String nick, String url, String comment) {
 		// TODO Auto-generated method stub
 		return new ReturnMessage<Object>(false, 0, "", null);
 	}
 
+	@Override
+	public ReturnMessage<List<News>> getNewsList(int type, String q) {
+		// TODO Auto-generated method stub
+		return new ReturnMessage<List<News>>(false, 0, "", null);
+
+	}
 }

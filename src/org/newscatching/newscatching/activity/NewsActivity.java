@@ -10,6 +10,7 @@ import org.newscatching.newscatching.util.AsyncImageDownloader;
 import org.newscatching.newscatching.util.DialogUtil;
 import org.newscatching.newscatching.util.ViewUtils;
 import org.newscatching.newscatching.viewmodel.News;
+import org.newscatching.newscatching.viewmodel.NewsDetails;
 import org.newscatching.newscatching.viewmodel.ReturnMessage;
 
 import android.app.AlertDialog;
@@ -47,17 +48,17 @@ public class NewsActivity extends BaseActivity {
 			}
 		});
 
-		new AsyncTask<String, Void, ReturnMessage<News>>() {
+		new AsyncTask<String, Void, ReturnMessage<NewsDetails>>() {
 
 			@Override
-			protected ReturnMessage<News> doInBackground(String... params) {
+			protected ReturnMessage<NewsDetails> doInBackground(String... params) {
 
 				INewsDao dao = BaseNewsDao.newInstance(NewsActivity.this);
 
 				return dao.getNews(params[0]);
 			}
 
-			protected void onPostExecute(ReturnMessage<News> result) {
+			protected void onPostExecute(ReturnMessage<NewsDetails> result) {
 
 				if (!result.isSuccess()) {
 					Toast.makeText(NewsActivity.this, R.string.ERROR_DATA_FAIL, Toast.LENGTH_SHORT).show();
@@ -70,7 +71,7 @@ public class NewsActivity extends BaseActivity {
 					return;
 				}
 
-				News news = result.getData();
+				News news = result.getData().getNews();
 				render(news);
 			};
 
@@ -112,6 +113,8 @@ public class NewsActivity extends BaseActivity {
 		iv = _findViewById(R.id.news_award);
 		if (!news.isHot()) {
 			iv.setVisibility(View.GONE);
+		} else {
+			iv.setVisibility(View.VISIBLE);
 		}
 
 		WebView wv = _findViewById(R.id.news_content);
@@ -143,6 +146,15 @@ public class NewsActivity extends BaseActivity {
 			@Override
 			public void onClick(View v) {
 				openReportDialog();
+			}
+		});
+
+		ViewUtils.deepOnClickBinder(_findViewById(R.id.news_browses_container), new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(NewsActivity.this, NewsListActivity.class);
+				intent.putExtra("type", NewsListActivity.TYPE_NEWS);
+				startActivity(intent);
 			}
 		});
 	}
@@ -183,6 +195,13 @@ public class NewsActivity extends BaseActivity {
 
 		final AlertDialog dialog = new AlertDialog.Builder(this).setIcon(android.R.drawable.ic_dialog_info)
 				.setView(view).show();
+		
+		TextView tv = (TextView) view.findViewById(R.id.news_report_title);
+		tv.setText(current_news.getTitle());
+		
+		tv = (TextView) view.findViewById(R.id.news_report_source);
+		tv.setText(current_news.getSource());
+		
 		view.findViewById(R.id.news_report_cancel).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -212,7 +231,7 @@ public class NewsActivity extends BaseActivity {
 					View view = DialogUtil.getInflater(NewsActivity.this).inflate(R.layout._report_list_row, null);
 
 					final ImageView iv = (ImageView) view.findViewById(R.id.report_star);
-					((TextView) view.findViewById(R.id.report_content)).setText(url+" "+comment);
+					((TextView) view.findViewById(R.id.report_content)).setText(url + " " + comment);
 
 					ViewGroup vg = _findViewById(R.id.news_reports);
 					vg.addView(view);

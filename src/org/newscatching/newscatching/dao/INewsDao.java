@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.newscatching.newscatching.viewmodel.HotNews;
 import org.newscatching.newscatching.viewmodel.News;
+import org.newscatching.newscatching.viewmodel.NewsDetails;
 import org.newscatching.newscatching.viewmodel.ReturnMessage;
 
 public interface INewsDao {
@@ -21,9 +22,12 @@ public interface INewsDao {
 
 	public abstract ReturnMessage<List<HotNews>> getHotNews();
 
-	public abstract ReturnMessage<News> getNews(String newsID);
+	public abstract ReturnMessage<List<News>> getNewsList(int type, String q);
+
+	public abstract ReturnMessage<NewsDetails> getNews(String newsID);
 
 	public abstract ReturnMessage<Object> addNewTalk(String newsID, String talk, String nick);
-	public abstract ReturnMessage<Object> addNewReport(String newsID,String nick, String url,String comment);
+
+	public abstract ReturnMessage<Object> addNewReport(String newsID, String nick, String url, String comment);
 
 }

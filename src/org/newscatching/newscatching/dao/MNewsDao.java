@@ -17,6 +17,7 @@ import org.newscatching.newscatching.util.HttpUtil;
 import org.newscatching.newscatching.util.LogUtil;
 import org.newscatching.newscatching.viewmodel.HotNews;
 import org.newscatching.newscatching.viewmodel.News;
+import org.newscatching.newscatching.viewmodel.NewsDetails;
 import org.newscatching.newscatching.viewmodel.ReturnMessage;
 
 public class MNewsDao extends BaseNewsDao {
@@ -118,8 +119,8 @@ public class MNewsDao extends BaseNewsDao {
 				this.cacheHolder.doCache(method, cache_key, response);
 			}
 
-			return new ReturnMessage<T>(isSuccess, jsonObject.getInt("status"),
-					jsonObject.getString("message"), converted);
+			return new ReturnMessage<T>(isSuccess, jsonObject.getInt("status"), jsonObject.getString("message"),
+					converted);
 
 		} catch (MalformedURLException e) {
 			LogUtil.e(e.getMessage(), e);
@@ -180,21 +181,49 @@ public class MNewsDao extends BaseNewsDao {
 	}
 
 	@Override
-	public ReturnMessage<News> getNews(String newsID) {
-		// TODO Auto-generated method stub
-		return null;
+	public ReturnMessage<NewsDetails> getNews(String newsID) {
+		return doCacheGET("news/read/" + newsID, null, new DataConverter<JSONObject, NewsDetails>() {
+			@Override
+			public NewsDetails ConvertTo(JSONObject input) throws Exception {
+				JSONObject jsonNews = input.getJSONObject("news");
+				News n = new News();
+				n.setTitle(jsonNews.getString("title"));
+				n.setContent(jsonNews.getString("body"));
+				n.setImageURL(jsonNews.getString("picUrl"));
+				n.setSource(jsonNews.getString("referral"));
+
+				NewsDetails nd = new NewsDetails();
+				nd.setNews(n);
+				return nd;
+				// List<HotNews> list = new ArrayList<HotNews>();
+				//
+				// for (int i = 0; i < input.length(); ++i) {
+				// JSONObject obj = input.getJSONObject(i);
+				// // TODO: replace image url
+				// list.add(new HotNews(obj.getString("id"),
+				// obj.getString("title"), obj.getString("ogImage")));
+				// }
+				//
+				// return list;
+			}
+		}, true, "getNews/" + newsID);
 	}
 
 	@Override
 	public ReturnMessage<Object> addNewTalk(String newsID, String talk, String nick) {
 		// TODO Auto-generated method stub
-		return new ReturnMessage<Object>(false,0,"",null);
+		return new ReturnMessage<Object>(false, 0, "", null);
 	}
 
 	@Override
-	public ReturnMessage<Object> addNewReport(String newsID,String nick, String url, String comment) {
+	public ReturnMessage<Object> addNewReport(String newsID, String nick, String url, String comment) {
 		// TODO Auto-generated method stub
-		return new ReturnMessage<Object>(false,0,"",null);
+		return new ReturnMessage<Object>(false, 0, "", null);
+	}
+
+	@Override
+	public ReturnMessage<List<News>> getNewsList(int type, String q) {
+		return new ReturnMessage<List<News>>(false, 0, "", null);
 	}
 
 	/*

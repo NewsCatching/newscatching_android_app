@@ -23,7 +23,7 @@
                 android:id="@+id/news_report_source"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:text="testset" />
+                android:text="" />
 
             <View
                 android:id="@+id/news_report_line"
@@ -36,7 +36,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:text="testset"
+                android:text=""
                 android:textSize="20sp" />
 
             <EditText
@@ -59,8 +59,8 @@
                 android:id="@+id/news_report_comment"
                 android:layout_width="fill_parent"
                 android:layout_height="100dp"
-                android:gravity="top|left"
                 android:background="@drawable/report_edit_text_old"
+                android:gravity="top|left"
                 android:hint="請輸入二十字內說明"
                 android:padding="5dp" />
 
@@ -71,26 +71,26 @@
                 android:orientation="horizontal" >
 
                 <TextView
+                    android:id="@+id/news_report_cancel"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/report_submit_button"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="取消"
+                    android:textColor="#fff" />
+
+                <TextView
                     android:id="@+id/news_report_ok"
                     android:layout_width="fill_parent"
+                    android:layout_marginLeft="2dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/report_submit_button"
                     android:gravity="center"
                     android:padding="10dp"
                     android:text="發送"
-                    android:textColor="#fff" />
-
-                <TextView
-                    android:id="@+id/news_report_cancel"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="2dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/report_submit_button"
-                    android:gravity="center"
-                    android:padding="10dp"
-                    android:text="取消"
                     android:textColor="#fff" />
             </LinearLayout>
         </LinearLayout>
