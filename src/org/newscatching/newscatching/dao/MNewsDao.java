@@ -11,7 +11,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.newscatching.newscatching.NewsConstant;
-import org.newscatching.newscatching.activity.NewsActivity;
 import org.newscatching.newscatching.activity.NewsListActivity;
 import org.newscatching.newscatching.cache.ICacheHolder;
 import org.newscatching.newscatching.util.ArrayUtil;
@@ -174,7 +173,11 @@ public class MNewsDao extends BaseNewsDao {
 				for (int i = 0; i < input.length(); ++i) {
 					JSONObject obj = input.getJSONObject(i);
 					// TODO: replace image url
-					list.add(new HotNews(obj.getString("id"), obj.getString("title"), obj.getString("ogImage")));
+					if(obj.isNull("ogImage")){
+						list.add(new HotNews(obj.getString("id"), obj.getString("title"), null));
+					}else{
+						list.add(new HotNews(obj.getString("id"), obj.getString("title"), obj.getString("ogImage")));
+					}
 				}
 
 				return list;
@@ -192,7 +195,13 @@ public class MNewsDao extends BaseNewsDao {
 				n.setNewsID(jsonNews.getString("id"));
 				n.setTitle(jsonNews.getString("title"));
 				n.setContent(jsonNews.getString("body"));
-				n.setImageURL(jsonNews.getString("picUrl"));
+				
+				if(!jsonNews.isNull("ogImage")){
+					n.setImageURL(jsonNews.getString("ogImage"));	
+				}else if(!jsonNews.isNull("picUrl")){
+					n.setImageURL(jsonNews.getString("picUrl"));
+				}
+				
 				n.setSource(jsonNews.getString("referral"));
 				NewsDetails nd = new NewsDetails();
 				nd.setNews(n);
@@ -247,7 +256,9 @@ public class MNewsDao extends BaseNewsDao {
 
 					n.setTitle(jsonNews.getString("title"));
 					// n.setContent(jsonNews.getString("body"));
-					n.setImageURL(jsonNews.getString("ogImage"));
+					if(!jsonNews.isNull("ogImage") ){
+						n.setImageURL(jsonNews.getString("ogImage"));
+					}
 					n.setSource(jsonNews.getString("referral"));
 					n.setSupported("1".equals(jsonNews.getString("isSupport")));
 					news.add(n);

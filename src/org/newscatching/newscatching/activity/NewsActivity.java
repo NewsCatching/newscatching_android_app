@@ -14,6 +14,7 @@ import org.newscatching.newscatching.viewmodel.ReturnMessage;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -232,6 +233,17 @@ public class NewsActivity extends BaseActivity {
 
 					ViewGroup vg = _findViewById(R.id.news_reports);
 					vg.addView(view);
+
+					ViewUtils.deepOnClickBinder(view, new View.OnClickListener() {
+						@Override
+						public void onClick(View v) {
+							Intent intent = new Intent();
+							intent.setAction(Intent.ACTION_VIEW);
+							intent.addCategory(Intent.CATEGORY_BROWSABLE);
+							intent.setData(Uri.parse(url));
+							startActivity(intent);
+						}
+					});
 
 					new AsyncTask<Void, Void, ReturnMessage<Object>>() {
 						public ReturnMessage<Object> doInBackground(Void[] params) {

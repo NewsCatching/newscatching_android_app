@@ -45,9 +45,12 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/header"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:orientation="vertical" >
 
         <EditText
+            android:inputType="text"
             android:id="@+id/newslist_search"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
